@@ -49,4 +49,11 @@ public class PricingServiceTest {
         double result = pricingService.calculatePrice(Map.of(1L, 1, 2L, 1, 3L, 1));
         assertEquals(135.0, result);
     }
+
+    @Test
+    @DisplayName("Four different books should return 160 EUR")
+    void shouldReturn160ForFourDifferentBooks() {
+        double result = pricingService.calculatePrice(Map.of(1L, 1, 2L, 1, 3L, 1, 4L, 1));
+        assertEquals(160, result);
+    }
 }

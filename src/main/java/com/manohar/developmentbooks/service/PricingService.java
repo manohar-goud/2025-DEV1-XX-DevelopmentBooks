@@ -41,8 +41,9 @@ public class PricingService {
             discount = 0.05;
         } else if (setSize == 3) {
             discount = 0.10;
+        } else if (setSize == 4) {
+            discount = 0.20;
         }
         return setSize * 50 * (1 - discount);
     }
-
 }
