@@ -8,9 +8,9 @@ public class PricingService {
         if (bookQuantityMap.isEmpty()) {
             return 0.0;
         }
-        if (bookQuantityMap.size() == 1 && bookQuantityMap.get(1L) == 1) {
-            return 50.0;
-        }
-        return 0.0;
+        int totalBooks = bookQuantityMap.values().stream()
+                .mapToInt(Integer::intValue).sum();
+
+        return totalBooks * 50.0;
     }
 }
