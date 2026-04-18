@@ -9,11 +9,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class PricingServiceTest {
 
+    private final PricingService pricingService = new PricingService();
+
     @Test
     @DisplayName("Empty basket should return 0.0")
     void shouldReturnZeroWhenBasketIsEmpty() {
-        PricingService pricingService = new PricingService();
-
         double result = pricingService.calculatePrice(Map.of());
 
         assertEquals(0.0, result);
@@ -22,8 +22,6 @@ public class PricingServiceTest {
     @Test
     @DisplayName("single book should return 50.0")
     void shouldReturn50ForSingleBook() {
-        PricingService pricingService = new PricingService();
-
         double result = pricingService.calculatePrice(Map.of(1L, 1));
 
         assertEquals(50.0, result);
@@ -32,8 +30,6 @@ public class PricingServiceTest {
     @Test
     @DisplayName("Two copies of same book should return 100.0")
     void shouldReturn100ForTwoCopiesOfSameBook() {
-        PricingService pricingService = new PricingService();
-
         double result = pricingService.calculatePrice(Map.of(1L, 2));
 
         assertEquals(100.0, result);
@@ -42,8 +38,6 @@ public class PricingServiceTest {
     @Test
     @DisplayName("Two different books should return 95 EUR")
     void shouldReturn95ForTwoDifferentBooks() {
-        PricingService pricingService = new PricingService();
-
         double result = pricingService.calculatePrice(Map.of(1L, 1, 2L, 1));
 
         assertEquals(95.0, result);
@@ -52,10 +46,7 @@ public class PricingServiceTest {
     @Test
     @DisplayName("Three different books should return 135 EUR")
     void shouldReturn135ForThreeDifferentBooks() {
-        PricingService pricingService = new PricingService();
-
         double result = pricingService.calculatePrice(Map.of(1L, 1, 2L, 1, 3L, 1));
-
         assertEquals(135.0, result);
     }
 }
