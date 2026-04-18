@@ -38,4 +38,15 @@ public class PricingServiceTest {
 
         assertEquals(100.0, result);
     }
+
+    @Test
+    @DisplayName("Two different books should return 95 EUR")
+    void shouldReturn95ForTwoDifferentBooks() {
+        PricingService pricingService = new PricingService();
+
+        double result = pricingService.calculatePrice(Map.of(1L, 1,2L,1));
+
+        assertEquals(95.0, result);
+    }
+
 }
