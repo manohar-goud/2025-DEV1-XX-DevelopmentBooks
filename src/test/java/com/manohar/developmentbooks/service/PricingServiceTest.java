@@ -63,4 +63,11 @@ public class PricingServiceTest {
         double result = pricingService.calculatePrice(Map.of(1L, 1, 2L, 1, 3L, 1, 4L, 1, 5L, 1));
         assertEquals(187.50, result);
     }
+
+    @Test
+    @DisplayName("two different  and one duplicate books should return 145 EUR")
+    void shouldReturn145ForTwoDifferentBooksAndOneDuplicate() {
+        double result = pricingService.calculatePrice(Map.of(4L, 2,2L,1));
+        assertEquals(145.0, result);
+    }
 }
