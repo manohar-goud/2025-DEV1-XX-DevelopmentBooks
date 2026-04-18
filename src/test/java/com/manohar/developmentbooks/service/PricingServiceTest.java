@@ -47,6 +47,7 @@ public class PricingServiceTest {
     @DisplayName("Three different books should return 135 EUR")
     void shouldReturn135ForThreeDifferentBooks() {
         double result = pricingService.calculatePrice(Map.of(1L, 1, 2L, 1, 3L, 1));
+
         assertEquals(135.0, result);
     }
 
@@ -54,6 +55,7 @@ public class PricingServiceTest {
     @DisplayName("Four different books should return 160 EUR")
     void shouldReturn160ForFourDifferentBooks() {
         double result = pricingService.calculatePrice(Map.of(1L, 1, 2L, 1, 3L, 1, 4L, 1));
+
         assertEquals(160, result);
     }
 
@@ -61,13 +63,23 @@ public class PricingServiceTest {
     @DisplayName("Five different books should return 187.50 EUR")
     void shouldReturn187ForFiveDifferentBooks() {
         double result = pricingService.calculatePrice(Map.of(1L, 1, 2L, 1, 3L, 1, 4L, 1, 5L, 1));
+
         assertEquals(187.50, result);
     }
 
     @Test
     @DisplayName("two different  and one duplicate books should return 145 EUR")
     void shouldReturn145ForTwoDifferentBooksAndOneDuplicate() {
-        double result = pricingService.calculatePrice(Map.of(4L, 2,2L,1));
+        double result = pricingService.calculatePrice(Map.of(4L, 2, 2L, 1));
+
         assertEquals(145.0, result);
+    }
+
+    @Test
+    @DisplayName("Optimize sets from 5+3 to 4+4 and return 320.00")
+    void optimisation() {
+        double result = pricingService.calculatePrice(Map.of(1L, 2, 2L, 2, 3L, 2, 4L, 1, 5L, 1));
+
+        assertEquals(320.00, result);
     }
 }

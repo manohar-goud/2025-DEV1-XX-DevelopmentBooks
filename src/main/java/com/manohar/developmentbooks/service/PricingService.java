@@ -13,6 +13,7 @@ public class PricingService {
         }
 
         List<Integer> uniqueSets = formUniqueBookSets(new ArrayList<>(bookQuantityMap.values()));
+        applyFourSetOptimisation(uniqueSets);
 
         return uniqueSets.stream().mapToDouble(this::priceForEachSet).sum();
     }
@@ -36,8 +37,20 @@ public class PricingService {
     }
 
     private double priceForEachSet(int setSize) {
-        Map<Integer,Double> discounts =Map.of(1,0.0,2,0.05,3,0.10,4,0.20,5,0.25);
+        Map<Integer, Double> discounts = Map.of(1, 0.0, 2, 0.05, 3, 0.10, 4, 0.20, 5, 0.25);
 
-       return setSize * 50 * (1 -   discounts.getOrDefault(setSize, 0.0));
+        return setSize * 50 * (1 - discounts.getOrDefault(setSize, 0.0));
+    }
+
+    private void applyFourSetOptimisation(List<Integer> uniqueSets) {
+        int swaps = Math.min(
+                Collections.frequency(uniqueSets, 5),
+                Collections.frequency(uniqueSets, 3)
+        );
+
+        for (int i = 0; i < swaps; i++) {
+            uniqueSets.set(uniqueSets.indexOf(5), 4);
+            uniqueSets.set(uniqueSets.indexOf(3), 4);
+        }
     }
 }
