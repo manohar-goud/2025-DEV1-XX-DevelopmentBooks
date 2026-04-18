@@ -82,4 +82,21 @@ public class PricingServiceTest {
 
         assertEquals(320.00, result);
     }
+
+    @Test
+    @DisplayName("Greedy-trap single swap: [5,5,3] → [5,4,4] returns 507.50 EUR")
+    void greedyTrapOneSwap() {
+        double result = pricingService.calculatePrice(Map.of(1L, 3, 2L, 3, 3L, 3, 4L, 2, 5L, 2));
+
+        assertEquals(507.50, result);
+    }
+
+
+    @Test
+    @DisplayName("Greedy-trap two swaps: [5,5,3,3] → [4,4,4,4] returns 640 EUR")
+    void greedyTrapTwoSwap() {
+        double result = pricingService.calculatePrice(Map.of(1L, 4, 2L, 4, 3L, 4, 4L, 2, 5L, 2));
+
+        assertEquals(640.00, result);
+    }
 }
