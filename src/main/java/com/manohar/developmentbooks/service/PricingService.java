@@ -36,14 +36,8 @@ public class PricingService {
     }
 
     private double priceForEachSet(int setSize) {
-        double discount = 0.0;
-        if (setSize == 2) {
-            discount = 0.05;
-        } else if (setSize == 3) {
-            discount = 0.10;
-        } else if (setSize == 4) {
-            discount = 0.20;
-        }
-        return setSize * 50 * (1 - discount);
+        Map<Integer,Double> discounts =Map.of(1,0.0,2,0.05,3,0.10,4,0.20,5,0.25);
+
+       return setSize * 50 * (1 -   discounts.getOrDefault(setSize, 0.0));
     }
 }
