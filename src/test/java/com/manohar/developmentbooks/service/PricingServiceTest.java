@@ -1,15 +1,42 @@
 package com.manohar.developmentbooks.service;
 
+import com.manohar.developmentbooks.entity.Discount;
+import com.manohar.developmentbooks.repository.DiscountRepository;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.junit.jupiter.MockitoSettings;
+import org.mockito.quality.Strictness;
 
+import java.util.List;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.when;
 
+@ExtendWith(MockitoExtension.class)
+@MockitoSettings(strictness = Strictness.LENIENT)
 public class PricingServiceTest {
 
-    private final PricingService pricingService = new PricingService();
+    @Mock
+    private DiscountRepository discountRepository;
+    @InjectMocks
+    private PricingService pricingService;
+
+    @BeforeEach
+    void setUp() {
+        when(discountRepository.findAll()).thenReturn(List.of(
+                new Discount(1, 0.00),
+                new Discount(2, 0.05),
+                new Discount(3, 0.10),
+                new Discount(4, 0.20),
+                new Discount(5, 0.25)
+        ));
+    }
 
     @Test
     @DisplayName("Empty basket should return 0.0")

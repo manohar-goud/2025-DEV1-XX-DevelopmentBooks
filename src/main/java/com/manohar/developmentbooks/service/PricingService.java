@@ -1,11 +1,19 @@
 package com.manohar.developmentbooks.service;
 
+import com.manohar.developmentbooks.entity.Discount;
+import com.manohar.developmentbooks.repository.DiscountRepository;
+import lombok.RequiredArgsConstructor;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
+@RequiredArgsConstructor
 public class PricingService {
+
+    private final DiscountRepository discountRepository;
 
     public double calculatePrice(Map<Long, Integer> bookQuantityMap) {
         if (bookQuantityMap.isEmpty()) {
@@ -34,6 +42,12 @@ public class PricingService {
             remaining.removeIf(qty -> qty == 0);
         }
         return uniqueSets;
+    }
+
+    private Map<Integer, Double> loadDiscounts() {
+        return discountRepository.findAll()
+                .stream()
+                .collect(Collectors.toMap(Discount::getSetSize, Discount::getDiscountRate));
     }
 
     private double priceForEachSet(int setSize) {
