@@ -19,7 +19,9 @@ public class BookStoreService {
     public double calculateBasketPrice(BasketRequest basketRequest) {
 
         Map<Long, Integer> bookQunatitiesMap = basketRequest.getBasket().stream()
-                .collect(Collectors.toMap(item -> findBook(item).getId(), item -> item.getQuantity()));
+                .collect(Collectors.toMap(item -> findBook(item).getId(),
+                        Item::getQuantity,
+                        Integer::sum));
 
         pricingService.calculatePrice(bookQunatitiesMap);
         return 0.0;

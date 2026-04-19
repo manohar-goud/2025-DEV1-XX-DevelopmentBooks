@@ -89,6 +89,24 @@ public class BookStoreServiceTest {
         );
     }
 
+    @Test
+    @DisplayName("Duplicate book codes in the request are merged by summing quantities")
+    void calculatePrice_mergesDuplicateBookCodesInRequest() {
+        when(bookRepository.findByCode("CLEAN_CODE"))
+                .thenReturn(Optional.of(book(1L, "CLEAN_CODE")));
+
+        @SuppressWarnings("unchecked")
+        ArgumentCaptor<Map<Long, Integer>> captor = ArgumentCaptor.forClass(Map.class);
+
+        bookStoreService.calculateBasketPrice(frameRequest(
+                item(BookName.CLEAN_CODE, 1),
+                item(BookName.CLEAN_CODE, 2)
+        ));
+
+        verify(pricingService).calculatePrice(captor.capture());
+        assertThat(captor.getValue()).containsExactlyInAnyOrderEntriesOf(Map.of(1L, 3));
+    }
+
     private BasketRequest frameRequest(Item... items) {
         return new BasketRequest(List.of(items));
     }
