@@ -1,12 +1,10 @@
 package com.manohar.developmentbooks.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Entity
 @Getter
-@AllArgsConstructor
 @Table(name = "book")
 public class Book {
 
@@ -21,5 +19,10 @@ public class Book {
     private String title;
 
     protected Book() {
+    }
+
+    public Book(String code, String title) {
+        this.code = code;
+        this.title = title;
     }
 }
