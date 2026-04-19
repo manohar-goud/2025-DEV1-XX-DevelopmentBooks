@@ -6,10 +6,12 @@ import com.manohar.developmentbooks.model.BasketRequest;
 import com.manohar.developmentbooks.model.Item;
 import com.manohar.developmentbooks.repository.BookRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
 import java.util.Map;
 import java.util.stream.Collectors;
 
+@Service
 @RequiredArgsConstructor
 public class BookStoreService {
 

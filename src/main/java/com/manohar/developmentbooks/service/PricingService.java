@@ -3,6 +3,7 @@ package com.manohar.developmentbooks.service;
 import com.manohar.developmentbooks.entity.Discount;
 import com.manohar.developmentbooks.repository.DiscountRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -10,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+@Service
 @RequiredArgsConstructor
 public class PricingService {
 
