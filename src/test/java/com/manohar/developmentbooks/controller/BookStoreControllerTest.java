@@ -45,4 +45,60 @@ public class BookStoreControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.basketPrice").value(320.0));
     }
+
+
+    @Test
+    @DisplayName("when quantity is 0 should return 400")
+    void calculatePriceShouldRejectZeroQuantity() throws Exception {
+        mockMvc.perform(post("/basket/calculatePrice")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {
+                                  "basket": [
+                                    { "bookName": "CLEAN_CODE", "quantity": 0 }
+                                  ]
+                                }
+                                """))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.status").value(400))
+                .andExpect(jsonPath("$.message").value("Validation failed"));
+    }
+
+    @Test
+    @DisplayName("Empty basket array should return 400")
+    void calculatePriceShouldRejectEmptyBasket() throws Exception {
+        mockMvc.perform(post("/basket/calculatePrice")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                { "basket": [] }
+                                """))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.status").value(400))
+                .andExpect(jsonPath("$.message").value("Validation failed"));
+    }
+
+    @Test
+    @DisplayName("Missing basket field should return 400")
+    void calculatePriceShouldRejectMissingBasket() throws Exception {
+        mockMvc.perform(post("/basket/calculatePrice")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{}"))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    @DisplayName("Unknown bookName value should return 400")
+    void calculatePriceShouldRejectUnknownBookName() throws Exception {
+        mockMvc.perform(post("/basket/calculatePrice")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {
+                                  "basket": [
+                                    { "bookName": "UNKNOWN_BOOK", "quantity": 1 }
+                                  ]
+                                }
+                                """))
+                .andExpect(status().isBadRequest());
+    }
 }
+
