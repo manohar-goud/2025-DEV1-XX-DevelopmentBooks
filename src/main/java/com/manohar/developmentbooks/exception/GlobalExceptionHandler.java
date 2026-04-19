@@ -15,4 +15,12 @@ public class GlobalExceptionHandler {
 
         return ResponseEntity.badRequest().body(new ErrorResponse(HttpStatus.BAD_REQUEST.value(), "Validation failed"));
     }
+
+    @ExceptionHandler(BookNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handleBookNotFoundException(BookNotFoundException ex) {
+
+        final ErrorResponse body = new ErrorResponse(HttpStatus.BAD_REQUEST.value(), "Book not found in catalogue: " + ex.getMessage());
+        return ResponseEntity.badRequest().body(body);
+    }
+
 }

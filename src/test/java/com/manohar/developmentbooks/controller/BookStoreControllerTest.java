@@ -1,5 +1,6 @@
 package com.manohar.developmentbooks.controller;
 
+import com.manohar.developmentbooks.exception.BookNotFoundException;
 import com.manohar.developmentbooks.service.BookStoreService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -100,5 +101,24 @@ public class BookStoreControllerTest {
                                 """))
                 .andExpect(status().isBadRequest());
     }
-}
 
+    @Test
+    @DisplayName("BookNotFoundException from service should return 400 with message")
+    void calculatePriceShouldMapToBookNotFoundToErrorResponse() throws Exception {
+        when(bookStoreService.calculateBasketPrice(any()))
+                .thenThrow(new BookNotFoundException("CLEAN_CODE"));
+
+        mockMvc.perform(post("/basket/calculatePrice")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {
+                                  "basket": [
+                                    { "bookName": "CLEAN_CODE", "quantity": 1 }
+                                  ]
+                                }
+                                """))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.status").value(400))
+                .andExpect(jsonPath("$.message").value("Book not found in catalogue: CLEAN_CODE"));
+    }
+}
