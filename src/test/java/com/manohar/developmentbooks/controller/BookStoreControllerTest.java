@@ -43,6 +43,6 @@ public class BookStoreControllerTest {
                                 }
                                 """))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$").value(320.0));
+                .andExpect(jsonPath("$.basketPrice").value(320.0));
     }
 }

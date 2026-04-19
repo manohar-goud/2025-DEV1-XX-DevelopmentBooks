@@ -1,6 +1,7 @@
 package com.manohar.developmentbooks.controller;
 
 import com.manohar.developmentbooks.model.BasketRequest;
+import com.manohar.developmentbooks.model.BasketResponse;
 import com.manohar.developmentbooks.service.BookStoreService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -19,8 +20,8 @@ public class BookStoreController {
 
     @PostMapping("/calculatePrice")
     public ResponseEntity<Double> basketPrice(@RequestBody BasketRequest basketRequest) {
-        double totalPrice = bookStoreService.calculateBasketPrice(basketRequest);
+        double basketPrice = bookStoreService.calculateBasketPrice(basketRequest);
 
-        return new ResponseEntity(totalPrice, HttpStatus.OK);
+        return new ResponseEntity(new BasketResponse(basketPrice), HttpStatus.OK);
     }
 }
