@@ -107,6 +107,18 @@ public class BookStoreServiceTest {
         assertThat(captor.getValue()).containsExactlyInAnyOrderEntriesOf(Map.of(1L, 3));
     }
 
+    @Test
+    @DisplayName("Returns the price from PricingService")
+    void calculatePriceShouldReturnsCorrectPrice() {
+        when(bookRepository.findByCode("CLEAN_CODE"))
+                .thenReturn(Optional.of(book(1L, "CLEAN_CODE")));
+        when(pricingService.calculatePrice(Map.of(1L, 1))).thenReturn(50.0);
+
+        double response = bookStoreService.calculateBasketPrice(frameRequest(item(BookName.CLEAN_CODE, 1)));
+
+        assertThat(response).isEqualTo(50.0);
+    }
+
     private BasketRequest frameRequest(Item... items) {
         return new BasketRequest(List.of(items));
     }

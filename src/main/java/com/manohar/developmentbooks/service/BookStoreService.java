@@ -23,8 +23,7 @@ public class BookStoreService {
                         Item::getQuantity,
                         Integer::sum));
 
-        pricingService.calculatePrice(bookQunatitiesMap);
-        return 0.0;
+        return pricingService.calculatePrice(bookQunatitiesMap);
     }
 
     private Book findBook(Item item) {
