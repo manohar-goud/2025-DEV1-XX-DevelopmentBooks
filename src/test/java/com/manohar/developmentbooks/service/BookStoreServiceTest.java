@@ -1,6 +1,7 @@
 package com.manohar.developmentbooks.service;
 
 import com.manohar.developmentbooks.entity.Book;
+import com.manohar.developmentbooks.exception.BookNotFoundException;
 import com.manohar.developmentbooks.model.BasketRequest;
 import com.manohar.developmentbooks.model.BookName;
 import com.manohar.developmentbooks.model.Item;
@@ -15,6 +16,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.List;
 import java.util.Optional;
 
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -42,6 +44,18 @@ public class BookStoreServiceTest {
 
         verify(bookRepository).findByCode("CLEAN_CODE");
         verify(bookRepository).findByCode("THE_CLEAN_CODER");
+    }
+
+    @Test
+    @DisplayName("Unknown book code should throw BookNotFoundException")
+    void calculateBasketPriceShouldThrowBookNotFoundException() {
+        when(bookRepository.findByCode("CLEAN_CODE")).thenReturn(Optional.empty());
+
+        assertThatThrownBy(() ->
+                bookStoreService.calculateBasketPrice(frameRequest(item(BookName.CLEAN_CODE, 1)))
+        )
+                .isInstanceOf(BookNotFoundException.class)
+                .hasMessageContaining("CLEAN_CODE");
     }
 
     private BasketRequest frameRequest(Item... items) {

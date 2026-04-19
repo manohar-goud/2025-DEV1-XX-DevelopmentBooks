@@ -1,5 +1,6 @@
 package com.manohar.developmentbooks.service;
 
+import com.manohar.developmentbooks.exception.BookNotFoundException;
 import com.manohar.developmentbooks.model.BasketRequest;
 import com.manohar.developmentbooks.repository.BookRepository;
 import lombok.RequiredArgsConstructor;
@@ -11,7 +12,9 @@ public class BookStoreService {
 
     public double calculateBasketPrice(BasketRequest basketRequest) {
 
-        basketRequest.getBasket().forEach(item -> bookRepository.findByCode(item.getBookName().name()));
+        basketRequest.getBasket()
+                .forEach(item -> bookRepository.findByCode(item.getBookName().name())
+                        .orElseThrow(() -> new BookNotFoundException(item.getBookName().name())));
         return 0.0;
     }
 }
