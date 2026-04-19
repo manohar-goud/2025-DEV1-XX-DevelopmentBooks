@@ -1,3 +1,18 @@
 spring:
   application:
     name: development-books
+
+  datasource:
+    url: jdbc:h2:mem:bookstore;DB_CLOSE_DELAY=-1
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  jpa:
+    defer-datasource-initialization: true
+    hibernate:
+      show-sql: true
+      ddl-auto: create-drop
+  sql.init.mode: always
+  h2:
+    console.enabled: true
+
