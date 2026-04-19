@@ -1,4 +1,4 @@
-INSERT INTO book (code, title, unit_price)
+INSERT INTO book (code, title)
 VALUES ('CLEAN_CODE', 'Clean Code (Robert Martin, 2008)'),
        ('THE_CLEAN_CODER', 'The Clean Coder (Robert Martin, 2011)'),
        ('CLEAN_ARCHITECTURE', 'Clean Architecture (Robert Martin, 2017)'),
