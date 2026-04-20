@@ -53,7 +53,7 @@ public class PricingService {
     }
 
     private double priceForEachSet(int setSize) {
-        Map<Integer, Double> discounts = Map.of(1, 0.0, 2, 0.05, 3, 0.10, 4, 0.20, 5, 0.25);
+        Map<Integer, Double> discounts = loadDiscounts();
 
         return setSize * 50 * (1 - discounts.getOrDefault(setSize, 0.0));
     }
