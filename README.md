@@ -44,10 +44,13 @@ Develop an application using TDD(Test Driven Development) that calculates the to
 1. By default, the application will start on port 8080. If you want the application to run on different port 8082, you can pass additional parameter --server.port=8082 while starting the application
 2. Once successfully built, you can run the service by one of these commands:
 
-   `java -jar target/development-books-0.0.1-SNAPSHOT.jar`
+   ```
+   java -jar target/development-books-0.0.1-SNAPSHOT.jar
 
                        or
-   `java -jar target/development-books-0.0.1-SNAPSHOT.jar --server.port=8082`
+   
+   java -jar target/development-books-0.0.1-SNAPSHOT.jar --server.port=8082
+   ```
 
 
 ## 📌 API Documentation
